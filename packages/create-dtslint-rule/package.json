@@ -1,0 +1,10 @@
+{
+  "name": "create-dtslint-rule",
+  "version": "0.1.0",
+  "private": true,
+  "bin": "./createRulePackage.js",
+  "dependencies": {
+    "fs-extra": "^6.0.1",
+    "tslint": "^5.9.1"
+  }
+}
