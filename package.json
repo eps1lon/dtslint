@@ -7,7 +7,7 @@
     "watch": "tsc --watch",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "lint": "tslint --project tsconfig.json --format stylish",
+    "lint": "lerna run lint -- --silent",
     "test": "lerna run test"
   },
   "devDependencies": {

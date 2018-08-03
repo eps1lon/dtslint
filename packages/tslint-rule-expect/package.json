@@ -24,6 +24,7 @@
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "build:watch": "tsc -w -p ./tsconfig.json",
+    "lint": "tslint -p ./tsconfig.json --format stylish",
     "test": "dtslint-rule-test-runner"
   }
 }
