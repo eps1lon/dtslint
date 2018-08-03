@@ -12,6 +12,9 @@
     "Dan Vanderkam <danvdk@gmail.com> (https://github.com/danvk)"
   ],
   "repository": "eps1lon/dtslint",
+  "dependencies": {
+    "dtslint-util": "^0.3.0"
+  },
   "devDependencies": {
     "dtslint-rule-test-runner": "^0.3.0",
     "typescript": "~2.1.0"
