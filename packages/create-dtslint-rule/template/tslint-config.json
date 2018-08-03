@@ -1,6 +1,6 @@
 {
   "extends": "./tslint-package.json",
   "rules": {
-    "expect": true
+    "template": true
   }
 }
