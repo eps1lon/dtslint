@@ -1,7 +1,6 @@
+import { failure, getCommonDirectoryName } from "dtslint-util";
 import * as Lint from "tslint";
 import * as ts from "typescript";
-
-import { failure, getCommonDirectoryName } from "../util";
 
 export class Rule extends Lint.Rules.TypedRule {
 	static metadata: Lint.IRuleMetadata = {
