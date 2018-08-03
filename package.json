@@ -12,7 +12,9 @@
     "test": "lerna run test"
   },
   "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
     "@types/node": "^7.0.68",
+    "@types/strip-json-comments": "0.0.30",
     "create-dtslint-rule": "file:packages/create-dtslint-rule",
     "lerna": "^3.0.0-rc.0",
     "tslint": "^5.9.1",
