@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"baseUrl": "./packages",
 		"module": "commonjs",
 		"target": "es6",
 		"lib": ["es2017"],
@@ -12,6 +13,9 @@
 		"noImplicitThis": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"strictNullChecks": true
+		"strictNullChecks": true,
+		"paths": {
+			"dtslint-util": ["./dtslint-util"]
+		}
 	}
 }

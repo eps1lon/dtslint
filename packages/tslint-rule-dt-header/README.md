@@ -1,8 +1,35 @@
-# dt-header
+# tslint-rule-dt-header
+TSLint rule to check the format of DefinitelyTyped header comments.
 
 (This rule is specific to DefinitelyTyped.)
 
-Checks the format of DefinitelyTyped header comments.
+## Usage
+```bash
+$ npm install --save-dev tslint-rule-dt-header
+```
+
+### Rule Access
+Add `tslint-rule-dt-header` to the `extends` property of your `tslint.json` to be 
+able to configure the rule.
+```json
+{
+    "extends": "tslint-rule-dt-header",
+    "rules": {
+      "dt-header": true
+    }
+}
+```
+
+### Recommended Config
+Adding `tslint-rule-dt-header/tslint-config` to the `extends` property of your `tslint.json`
+enables the rule and applies a configuration that is recommended by the maintainer of this package.
+```json
+{
+    "extends": "tslint-rule-dt-header/tslint-config"
+}
+```
+
+## Documentation
 
 ---
 
@@ -71,3 +98,8 @@ export function f(): number;
 ```
 
 Don't use a header twice -- only do it in the index.
+
+## Typescript version
+Emitted javascript passes all tests with `typescript@~2.1.0` but fails to emit
+declarations (cause: `@types/parsimmon` syntax) so we use a higher version in
+development.
