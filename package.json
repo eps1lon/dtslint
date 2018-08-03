@@ -5,11 +5,13 @@
   ],
   "scripts": {
     "watch": "tsc --watch",
-    "build": "tsc",
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
     "lint": "tslint --project tsconfig.json --format stylish",
     "test": "node test/test.js"
   },
   "devDependencies": {
+    "@types/node": "^7.0.68",
     "lerna": "^3.0.0-rc.0",
     "tslint": "^5.9.1",
     "typescript": "~2.9.2"
