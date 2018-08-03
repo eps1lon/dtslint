@@ -8,7 +8,7 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "lint": "tslint --project tsconfig.json --format stylish",
-    "test": "node test/test.js"
+    "test": "lerna run test"
   },
   "devDependencies": {
     "@types/node": "^7.0.68",

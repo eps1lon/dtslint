@@ -10,6 +10,7 @@
   ],
   "repository": "eps1lon/dtslint",
   "devDependencies": {
+    "dtslint-rule-test-runner": "^0.3.0",
     "typescript": "~2.9.2"
   },
   "peerDependencies": {
@@ -22,6 +23,7 @@
   },
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "build:watch": "tsc -w -p ./tsconfig.json"
+    "build:watch": "tsc -w -p ./tsconfig.json",
+    "test": "dtslint-rule-test-runner"
   }
 }

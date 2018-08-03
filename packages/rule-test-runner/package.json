@@ -1,0 +1,9 @@
+{
+  "name": "dtslint-rule-test-runner",
+  "version": "0.3.0",
+  "bin": "./test.js",
+  "dependencies": {
+    "tslint": "^5.9.1"
+  },
+  "private": true
+}
