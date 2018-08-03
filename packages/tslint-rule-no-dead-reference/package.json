@@ -1,0 +1,36 @@
+{
+  "name": "tslint-rule-no-dead-reference",
+  "version": "0.3.0",
+  "description": "TSLint rule to check for dead references.",
+  "files": [
+    "rules",
+    "tslint-config.json"
+  ],
+  "main": "tslint-package.json",
+  "contributors": [
+    "Andy Hanson <andy-ms@microsoft.com> (https://github.com/andy-ms)",
+    "Dan Vanderkam <danvdk@gmail.com> (https://github.com/danvk)"
+  ],
+  "repository": "eps1lon/dtslint",
+  "dependencies": {
+    "dtslint-util": "^0.3.0"
+  },
+  "devDependencies": {
+    "dtslint-rule-test-runner": "^0.3.0",
+    "typescript": "~2.9.0"
+  },
+  "peerDependencies": {
+    "tslint": "^5.10.0",
+    "typescript": "^2.1.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.10.0"
+  },
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "build:watch": "tsc -w -p ./tsconfig.json",
+    "lint": "tslint -p ./tsconfig.json --format stylish",
+    "test": "dtslint-rule-test-runner"
+  }
+}

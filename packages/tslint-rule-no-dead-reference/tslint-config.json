@@ -1,5 +1,5 @@
 {
-  "rulesDirectory": ["../../bin/rules"],
+  "extends": "./tslint-package.json",
   "rules": {
     "no-dead-reference": true
   }
