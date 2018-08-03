@@ -1,22 +1,8 @@
 {
-  "name": "dtslint",
-  "version": "0.3.0",
-  "description": "Runs tests on TypeScript definition files",
-  "files": [
-    "bin",
-    "dt.json",
-    "dtslint.json"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "main": "bin",
-  "bin": "./bin/index.js",
-  "contributors": [
-    "Andy Hanson <andy-ms@microsoft.com> (https://github.com/andy-ms)",
-    "Dan Vanderkam <danvdk@gmail.com> (https://github.com/danvk)"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Microsoft/dtslint.git"
-  },
   "scripts": {
     "watch": "tsc --watch",
     "build": "tsc",
@@ -35,10 +21,7 @@
     "@types/mz": "0.0.30",
     "@types/node": "^7.0.5",
     "@types/parsimmon": "^1.0.3",
-    "@types/strip-json-comments": "^0.0.28"
-  },
-  "engines": {
-    "node": ">=6.10.0"
-  },
-  "license": "MIT"
+    "@types/strip-json-comments": "^0.0.28",
+    "lerna": "^3.0.0-rc.0"
+  }
 }
