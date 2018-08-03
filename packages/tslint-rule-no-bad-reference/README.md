@@ -29,7 +29,7 @@ enables the rule and applies a configuration that is recommended by the maintain
 }
 ```
 
-## Documentation
+## Examples
 
 **Bad**:
 
