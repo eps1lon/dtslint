@@ -15,6 +15,7 @@
 		"noUnusedParameters": true,
 		"strictNullChecks": true,
 		"paths": {
+			"dtslint-tsutil": ["./dtslint-tsutil"],
 			"dtslint-util": ["./dtslint-util"]
 		}
 	}

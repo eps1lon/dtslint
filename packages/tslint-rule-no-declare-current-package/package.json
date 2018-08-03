@@ -13,6 +13,7 @@
   ],
   "repository": "eps1lon/dtslint",
   "dependencies": {
+    "dtslint-tsutil": "^0.3.0",
     "dtslint-util": "^0.3.0"
   },
   "devDependencies": {

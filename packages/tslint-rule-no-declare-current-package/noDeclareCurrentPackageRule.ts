@@ -1,4 +1,5 @@
-import { failure, getCommonDirectoryName } from "dtslint-util";
+import { getCommonDirectoryName } from "dtslint-tsutil";
+import { failure } from "dtslint-util";
 import * as Lint from "tslint";
 import * as ts from "typescript";
 
