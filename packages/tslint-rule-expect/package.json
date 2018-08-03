@@ -2,8 +2,11 @@
   "name": "tslint-rule-expect",
   "version": "0.3.0",
   "description": "TSLint rule to test type assertions",
-  "files": ["expectRule.js"],
-  "main": "expectRule.js",
+  "files": [
+    "rules",
+    "tslint-config.json"
+  ],
+  "main": "tslint-package.json",
   "contributors": [
     "Andy Hanson <andy-ms@microsoft.com> (https://github.com/andy-ms)",
     "Dan Vanderkam <danvdk@gmail.com> (https://github.com/danvk)"

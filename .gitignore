@@ -2,4 +2,4 @@ bin
 node_modules
 typescript-installs
 # dist
-packages/tslint-rule-*/*Rule.js*
+packages/tslint-rule-*/rules
