@@ -1,6 +1,0 @@
-{
-    "rulesDirectory": ["../../bin/rules"],
-    "rules": {
-      "no-unnecessary-generics": true
-    }
-  }
