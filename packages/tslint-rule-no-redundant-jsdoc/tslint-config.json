@@ -1,0 +1,6 @@
+{
+  "extends": "./tslint-package.json",
+  "rules": {
+    "no-redundant-jsdoc": true
+  }
+}
