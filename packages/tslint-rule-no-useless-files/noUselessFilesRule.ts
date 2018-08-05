@@ -1,7 +1,6 @@
+import { failure } from 'dtslint-util';
 import * as Lint from "tslint";
 import * as ts from "typescript";
-
-import { failure } from "../util";
 
 // Same functionality as https://github.com/palantir/tslint/pull/1654, but simpler implementation.
 // Remove when that PR is in.
