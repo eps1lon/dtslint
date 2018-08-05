@@ -1,0 +1,6 @@
+{
+  "extends": "./tslint-package.json",
+  "rules": {
+    "no-single-element-tuple-type": true
+  }
+}
