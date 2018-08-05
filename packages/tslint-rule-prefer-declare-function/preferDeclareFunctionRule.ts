@@ -1,7 +1,7 @@
+import { eachModuleStatement } from "dtslint-tsutil";
+import { failure } from "dtslint-util";
 import * as Lint from "tslint";
 import * as ts from "typescript";
-
-import { eachModuleStatement, failure } from "../util";
 
 export class Rule extends Lint.Rules.AbstractRule {
 	static metadata: Lint.IRuleMetadata = {
