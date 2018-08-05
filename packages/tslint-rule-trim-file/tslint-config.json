@@ -1,0 +1,6 @@
+{
+  "extends": "./tslint-package.json",
+  "rules": {
+    "trim-file": true
+  }
+}
