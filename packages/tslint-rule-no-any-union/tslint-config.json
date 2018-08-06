@@ -1,5 +1,5 @@
 {
-  "extends": "./tslint-package.json",
+  "extends": "./",
   "rules": {
     "no-any-union": true
   }

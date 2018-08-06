@@ -1,5 +1,5 @@
 {
-  "extends": "./tslint-package.json",
+  "extends": "./",
   "rules": {
     "no-outside-dependencies": true
   }

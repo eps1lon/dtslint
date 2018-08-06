@@ -1,5 +1,5 @@
 {
-  "extends": "./tslint-package.json",
+  "extends": "./",
   "rules": {
     "strict-export-declare-modifiers": true
   }

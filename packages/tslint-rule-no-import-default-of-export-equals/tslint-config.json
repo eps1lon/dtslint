@@ -1,5 +1,5 @@
 {
-  "extends": "./tslint-package.json",
+  "extends": "./",
   "rules": {
     "no-import-default-of-export-equals": true
   }
