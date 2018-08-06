@@ -9,11 +9,11 @@ $ npm install --save-dev tslint-rule-no-import-default-of-export-equals
 ```
 
 ### Rule Access
-Add `tslint-rule-no-import-default-of-export-equals` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-no-import-default-of-export-equals` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-no-import-default-of-export-equals",
+    "rulesDirectory": ["tslint-rule-no-import-default-of-export-equals"],
     "rules": {
       "no-import-default-of-export-equals": true
     }
@@ -21,11 +21,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-no-import-default-of-export-equals/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-no-import-default-of-export-equals` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-no-import-default-of-export-equals/tslint-config"
+    "extends": "tslint-rule-no-import-default-of-export-equals"
 }
 ```
 

@@ -7,11 +7,11 @@ $ npm install --save-dev tslint-rule-strict-export-declare-modifiers
 ```
 
 ### Rule Access
-Add `tslint-rule-strict-export-declare-modifiers` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-strict-export-declare-modifiers` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-strict-export-declare-modifiers",
+    "rulesDirectory": ["tslint-rule-strict-export-declare-modifiers"],
     "rules": {
       "strict-export-declare-modifiers": true
     }
@@ -19,11 +19,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-strict-export-declare-modifiers/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-strict-export-declare-modifiers` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-strict-export-declare-modifiers/tslint-config"
+    "extends": "tslint-rule-strict-export-declare-modifiers"
 }
 ```
 

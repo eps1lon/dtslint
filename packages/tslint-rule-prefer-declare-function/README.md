@@ -7,11 +7,11 @@ $ npm install --save-dev tslint-rule-prefer-declare-function
 ```
 
 ### Rule Access
-Add `tslint-rule-prefer-declare-function` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-prefer-declare-function` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-prefer-declare-function",
+    "rulesDirectory": ["tslint-rule-prefer-declare-function"],
     "rules": {
       "prefer-declare-function": true
     }
@@ -19,11 +19,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-prefer-declare-function/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-prefer-declare-function` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-prefer-declare-function/tslint-config"
+    "extends": "tslint-rule-prefer-declare-function"
 }
 ```
 

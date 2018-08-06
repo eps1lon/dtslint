@@ -7,11 +7,11 @@ $ npm install --save-dev tslint-rule-export-just-namespace
 ```
 
 ### Rule Access
-Add `tslint-rule-export-just-namespace` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-export-just-namespace` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-export-just-namespace",
+    "rulesDirectory": ["tslint-rule-export-just-namespace"],
     "rules": {
       "export-just-namespace": true
     }
@@ -19,11 +19,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-export-just-namespace/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-export-just-namespace` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-export-just-namespace/tslint-config"
+    "extends": "tslint-rule-export-just-namespace"
 }
 ```
 

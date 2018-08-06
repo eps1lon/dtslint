@@ -8,11 +8,11 @@ $ npm install --save-dev tslint-rule-no-dead-reference
 ```
 
 ### Rule Access
-Add `tslint-rule-no-dead-reference` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-no-dead-reference` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-no-dead-reference",
+    "rulesDirectory": ["tslint-rule-no-dead-reference"],
     "rules": {
       "no-dead-reference": true
     }
@@ -20,11 +20,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-no-dead-reference/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-no-dead-reference` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-no-dead-reference/tslint-config"
+    "extends": "tslint-rule-no-dead-reference"
 }
 ```
 

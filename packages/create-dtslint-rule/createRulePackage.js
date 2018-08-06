@@ -28,15 +28,6 @@ fs.move(
   path.join(packagePath, ruleFileName)
 )
 
-// fill tsconfig.json template
-const tsconfigPath = path.join(packagePath, 'tsconfig.json');
-const templateTsconfig = fs.readJSONSync(tsconfigPath);
-const packageTsconfig = {
-  ...templateTsconfig,
-  files: [ruleFileName]
-}
-fs.writeJSONSync(tsconfigPath, packageTsconfig, { spaces: 2 });
-
 // fill package.json template
 const packageJsonPath = path.join(packagePath, 'package.json');
 const templatePackageJson = fs.readJSONSync(packageJsonPath);

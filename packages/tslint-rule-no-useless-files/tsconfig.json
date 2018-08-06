@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig-rule.json",
   "compilerOptions": {
-    "outDir": "rules"
+    "outDir": "./"
   },
-  "files": [
-    "noUselessFilesRule.ts"
+  "include": [
+    "./*Rule.ts"
   ]
 }

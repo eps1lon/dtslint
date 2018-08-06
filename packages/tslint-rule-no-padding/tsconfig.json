@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig-rule.json",
   "compilerOptions": {
-    "outDir": "rules"
+    "outDir": "./"
   },
-  "files": [
-    "noPaddingRule.ts"
+  "include": [
+    "./*Rule.ts"
   ]
 }

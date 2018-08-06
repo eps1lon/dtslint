@@ -9,11 +9,11 @@ $ npm install --save-dev tslint-rule-no-bad-reference
 ```
 
 ### Rule Access
-Add `tslint-rule-no-bad-reference` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-no-bad-reference` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-no-bad-reference",
+    "rulesDirectory": ["tslint-rule-no-bad-reference"],
     "rules": {
       "no-bad-reference": true
     }
@@ -21,11 +21,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-no-bad-reference/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-no-bad-reference` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-no-bad-reference/tslint-config"
+    "extends": "tslint-rule-no-bad-reference"
 }
 ```
 

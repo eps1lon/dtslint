@@ -7,11 +7,11 @@ $ npm install --save-dev tslint-rule-no-redundant-jsdoc
 ```
 
 ### Rule Access
-Add `tslint-rule-no-redundant-jsdoc` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-no-redundant-jsdoc` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-no-redundant-jsdoc",
+    "rulesDirectory": ["tslint-rule-no-redundant-jsdoc"],
     "rules": {
       "no-redundant-jsdoc": true
     }
@@ -19,11 +19,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-no-redundant-jsdoc/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-no-redundant-jsdoc` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-no-redundant-jsdoc/tslint-config"
+    "extends": "tslint-rule-no-redundant-jsdoc"
 }
 ```
 

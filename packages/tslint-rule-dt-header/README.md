@@ -9,11 +9,11 @@ $ npm install --save-dev tslint-rule-dt-header
 ```
 
 ### Rule Access
-Add `tslint-rule-dt-header` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-dt-header` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-dt-header",
+    "rulesDirectory": ["tslint-rule-dt-header"],
     "rules": {
       "dt-header": true
     }
@@ -21,11 +21,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-dt-header/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-dt-header` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-dt-header/tslint-config"
+    "extends": "tslint-rule-dt-header"
 }
 ```
 

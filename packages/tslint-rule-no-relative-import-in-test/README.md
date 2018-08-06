@@ -8,11 +8,11 @@ $ npm install --save-dev tslint-rule-no-relative-import-in-test
 ```
 
 ### Rule Access
-Add `tslint-rule-no-relative-import-in-test` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-no-relative-import-in-test` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-no-relative-import-in-test",
+    "rulesDirectory": ["tslint-rule-no-relative-import-in-test"],
     "rules": {
       "no-relative-import-in-test": true
     }
@@ -20,11 +20,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-no-relative-import-in-test/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-no-relative-import-in-test` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-no-relative-import-in-test/tslint-config"
+    "extends": "tslint-rule-no-relative-import-in-test"
 }
 ```
 

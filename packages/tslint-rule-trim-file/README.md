@@ -7,11 +7,11 @@ $ npm install --save-dev tslint-rule-trim-file
 ```
 
 ### Rule Access
-Add `tslint-rule-trim-file` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-trim-file` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-trim-file",
+    "rulesDirectory": ["tslint-rule-trim-file"],
     "rules": {
       "trim-file": true
     }
@@ -19,11 +19,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-trim-file/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-trim-file` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-trim-file/tslint-config"
+    "extends": "tslint-rule-trim-file"
 }
 ```
 

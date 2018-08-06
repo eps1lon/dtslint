@@ -8,11 +8,11 @@ $ npm install --save-dev tslint-rule-no-self-import
 ```
 
 ### Rule Access
-Add `tslint-rule-no-self-import` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-no-self-import` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-no-self-import",
+    "rulesDirectory": ["tslint-rule-no-self-import"],
     "rules": {
       "no-self-import": true
     }
@@ -20,11 +20,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-no-self-import/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-no-self-import` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-no-self-import/tslint-config"
+    "extends": "tslint-rule-no-self-import"
 }
 ```
 

@@ -7,11 +7,11 @@ $ npm install --save-dev tslint-rule-no-useless-files
 ```
 
 ### Rule Access
-Add `tslint-rule-no-useless-files` to the `extends` property of your `tslint.json` to be 
+Add `tslint-rule-no-useless-files` to the `rulesDirectory` property of your `tslint.json` to be 
 able to configure the rule.
 ```json
 {
-    "extends": "tslint-rule-no-useless-files",
+    "rulesDirectory": ["tslint-rule-no-useless-files"],
     "rules": {
       "no-useless-files": true
     }
@@ -19,11 +19,11 @@ able to configure the rule.
 ```
 
 ### Recommended Config
-Adding `tslint-rule-no-useless-files/tslint-config` to the `extends` property of your `tslint.json`
+Adding `tslint-rule-no-useless-files` to the `extends` property of your `tslint.json`
 enables the rule and applies a configuration that is recommended by the maintainer of this package.
 ```json
 {
-    "extends": "tslint-rule-no-useless-files/tslint-config"
+    "extends": "tslint-rule-no-useless-files"
 }
 ```
 
