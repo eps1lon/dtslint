@@ -1,0 +1,51 @@
+{
+  "name": "dtslint",
+  "version": "0.3.0",
+  "description": "TSLint config including all rules from dtslint",
+  "main": "tslint-config.json",
+  "files": [
+    "tslint-config-dt.json"
+  ],
+  "contributors": [
+    "Andy Hanson <andy-ms@microsoft.com> (https://github.com/andy-ms)",
+    "Dan Vanderkam <danvdk@gmail.com> (https://github.com/danvk)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/dtslint.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "tslint-rule-dt-header": "^0.3.0",
+    "tslint-rule-expect": "^0.3.0",
+    "tslint-rule-export-just-namespace": "^0.3.0",
+    "tslint-rule-no-any-union": "^0.3.0",
+    "tslint-rule-no-bad-reference": "^0.3.0",
+    "tslint-rule-no-const-enum": "^0.3.0",
+    "tslint-rule-no-dead-reference": "^0.3.0",
+    "tslint-rule-no-declare-current-package": "^0.3.0",
+    "tslint-rule-no-import-default-of-export-equals": "^0.3.0",
+    "tslint-rule-no-outside-dependencies": "^0.3.0",
+    "tslint-rule-no-padding": "^0.3.0",
+    "tslint-rule-no-redundant-jsdoc": "^0.3.0",
+    "tslint-rule-no-redundant-undefined": "^0.3.0",
+    "tslint-rule-no-relative-import-in-test": "^0.3.0",
+    "tslint-rule-no-self-import": "^0.3.0",
+    "tslint-rule-no-single-declare-module": "^0.3.0",
+    "tslint-rule-no-unnecessary-generics": "^0.3.0",
+    "tslint-rule-no-useless-files": "^0.3.0",
+    "tslint-rule-prefer-declare-function": "^0.3.0",
+    "tslint-rule-strict-export-declare-modifiers": "^0.3.0",
+    "tslint-rule-trim-file": "^0.3.0",
+    "tslint-rule-void-return": "^0.3.0"
+  },
+  "devDependencies": {
+    "glob": "^7.1.2"
+  },
+  "peerDependencies": {
+    "tslint": "^5.9.1"
+  },
+  "scripts": {
+    "test": "node ./scripts/checkRules.js"
+  }
+}

@@ -1,0 +1,11 @@
+{
+	"extends": [
+		"./tslint-config.json",
+		"tslint-rule-dt-header",
+		"tslint-rule-no-bad-reference",
+		"tslint-rule-no-declare-current-package",
+		"tslint-rule-no-outside-dependencies",
+		"tslint-rule-no-redundant-jsdoc",
+		"tslint-rule-no-self-import"
+	]
+}
