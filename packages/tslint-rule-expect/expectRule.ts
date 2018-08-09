@@ -1,6 +1,3 @@
-import assert = require("assert");
-import { existsSync, readFileSync } from "fs";
-import { dirname, resolve as resolvePath } from "path";
 import * as Lint from "tslint";
 import * as ts from "typescript";
 
@@ -28,43 +25,7 @@ export class Rule extends Lint.Rules.TypedRule {
 	}
 
 	applyWithProgram(sourceFile: ts.SourceFile, lintProgram: ts.Program): Lint.RuleFailure[] {
-		const options = this.ruleArguments[0] as Options | undefined;
-		if (!options) {
-			return this.applyWithFunction(sourceFile, ctx =>
-				walk(ctx, lintProgram));
-		}
-
-		const getFailures = () => {
-			const program = getProgram(options.tsconfigPath, lintProgram);
-			return this.applyWithFunction(sourceFile, ctx => walk(ctx, program));
-		};
-
-		const nextFailures = getFailures();
-		if (options.onlyTestTsNext || nextFailures.length) {
-			return nextFailures;
-		}
-
-		assert(options.olderInstalls.length);
-
-		// As an optimization, check the earliest version for errors;
-		// assume that if it works on min and next, it works for everything in between.
-		const minFailures = getFailures();
-		if (!minFailures.length) {
-			return [];
-		}
-
-		// There are no failures in `next`, but there are failures in `min`.
-		// Work backward to find the newest version with failures.
-		for (let i = options.olderInstalls.length - 1; i >= 0; i--) {
-			const { versionName } = options.olderInstalls[i];
-			console.log(`Test with ${versionName}`);
-			const failures = getFailures();
-			if (failures.length) {
-				return failures;
-			}
-		}
-
-		throw new Error(); // unreachable -- at least the min version should have failures.
+		return this.applyWithFunction(sourceFile, ctx => walk(ctx, lintProgram));
 	}
 }
 
@@ -74,37 +35,6 @@ export interface Options {
 	// These should be sorted with oldest first.
 	readonly olderInstalls: ReadonlyArray<{ versionName: string, path: string }>;
 	readonly onlyTestTsNext: boolean;
-}
-
-const programCache = new WeakMap<ts.Program, Map<string, ts.Program>>();
-/** Maps a tslint Program to one created with the version specified in `options`. */
-function getProgram(configFile: string, oldProgram: ts.Program): ts.Program {
-	let versionToProgram = programCache.get(oldProgram);
-	if (versionToProgram === undefined) {
-		versionToProgram = new Map<string, ts.Program>();
-		programCache.set(oldProgram, versionToProgram);
-	}
-
-	let newProgram = versionToProgram.get(ts.version);
-	if (newProgram === undefined) {
-		newProgram = createProgram(configFile);
-		versionToProgram.set(ts.version, newProgram);
-	}
-	return newProgram;
-}
-
-function createProgram(configFile: string): ts.Program {
-	const projectDirectory = dirname(configFile);
-	const { config } = ts.readConfigFile(configFile, ts.sys.readFile);
-	const parseConfigHost: ts.ParseConfigHost = {
-		fileExists: existsSync,
-		readDirectory: ts.sys.readDirectory,
-		readFile: file => readFileSync(file, "utf8"),
-		useCaseSensitiveFileNames: true,
-	};
-	const parsed = ts.parseJsonConfigFileContent(config, parseConfigHost, resolvePath(projectDirectory), {noEmit: true});
-	const host = ts.createCompilerHost(parsed.options, true);
-	return ts.createProgram(parsed.fileNames, parsed.options, host);
 }
 
 function walk(
