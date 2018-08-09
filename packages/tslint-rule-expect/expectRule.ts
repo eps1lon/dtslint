@@ -2,10 +2,7 @@ import assert = require("assert");
 import { existsSync, readFileSync } from "fs";
 import { dirname, resolve as resolvePath } from "path";
 import * as Lint from "tslint";
-import * as TsType from "typescript";
-
-type Program = TsType.Program;
-type SourceFile = TsType.SourceFile;
+import * as ts from "typescript";
 
 // Based on https://github.com/danvk/typings-checker
 
@@ -30,20 +27,19 @@ export class Rule extends Lint.Rules.TypedRule {
 		return `Expected type to be:\n  ${expectedType}\ngot:\n  ${actualType}`;
 	}
 
-	applyWithProgram(sourceFile: SourceFile, lintProgram: Program): Lint.RuleFailure[] {
+	applyWithProgram(sourceFile: ts.SourceFile, lintProgram: ts.Program): Lint.RuleFailure[] {
 		const options = this.ruleArguments[0] as Options | undefined;
 		if (!options) {
 			return this.applyWithFunction(sourceFile, ctx =>
-				walk(ctx, lintProgram, TsType, "next", /*nextHigherVersion*/ undefined));
+				walk(ctx, lintProgram));
 		}
 
-		const getFailures = (versionName: string, path: string, nextHigherVersion: string | undefined) => {
-			const ts = require(path);
-			const program = getProgram(options.tsconfigPath, ts, versionName, lintProgram);
-			return this.applyWithFunction(sourceFile, ctx => walk(ctx, program, ts, versionName, nextHigherVersion));
+		const getFailures = () => {
+			const program = getProgram(options.tsconfigPath, lintProgram);
+			return this.applyWithFunction(sourceFile, ctx => walk(ctx, program));
 		};
 
-		const nextFailures = getFailures("next", options.tsNextPath, /*nextHigherVersion*/ undefined);
+		const nextFailures = getFailures();
 		if (options.onlyTestTsNext || nextFailures.length) {
 			return nextFailures;
 		}
@@ -52,8 +48,7 @@ export class Rule extends Lint.Rules.TypedRule {
 
 		// As an optimization, check the earliest version for errors;
 		// assume that if it works on min and next, it works for everything in between.
-		const minInstall = options.olderInstalls[0];
-		const minFailures = getFailures(minInstall.versionName, minInstall.path, undefined);
+		const minFailures = getFailures();
 		if (!minFailures.length) {
 			return [];
 		}
@@ -61,10 +56,9 @@ export class Rule extends Lint.Rules.TypedRule {
 		// There are no failures in `next`, but there are failures in `min`.
 		// Work backward to find the newest version with failures.
 		for (let i = options.olderInstalls.length - 1; i >= 0; i--) {
-			const { versionName, path } = options.olderInstalls[i];
+			const { versionName } = options.olderInstalls[i];
 			console.log(`Test with ${versionName}`);
-			const nextHigherVersion = i === options.olderInstalls.length - 1 ? "next" : options.olderInstalls[i + 1].versionName;
-			const failures = getFailures(versionName, path, nextHigherVersion);
+			const failures = getFailures();
 			if (failures.length) {
 				return failures;
 			}
@@ -82,27 +76,27 @@ export interface Options {
 	readonly onlyTestTsNext: boolean;
 }
 
-const programCache = new WeakMap<Program, Map<string, Program>>();
+const programCache = new WeakMap<ts.Program, Map<string, ts.Program>>();
 /** Maps a tslint Program to one created with the version specified in `options`. */
-function getProgram(configFile: string, ts: typeof TsType, versionName: string, oldProgram: Program): Program {
+function getProgram(configFile: string, oldProgram: ts.Program): ts.Program {
 	let versionToProgram = programCache.get(oldProgram);
 	if (versionToProgram === undefined) {
-		versionToProgram = new Map<string, Program>();
+		versionToProgram = new Map<string, ts.Program>();
 		programCache.set(oldProgram, versionToProgram);
 	}
 
-	let newProgram = versionToProgram.get(versionName);
+	let newProgram = versionToProgram.get(ts.version);
 	if (newProgram === undefined) {
-		newProgram = createProgram(configFile, ts);
-		versionToProgram.set(versionName, newProgram);
+		newProgram = createProgram(configFile);
+		versionToProgram.set(ts.version, newProgram);
 	}
 	return newProgram;
 }
 
-function createProgram(configFile: string, ts: typeof TsType): Program {
+function createProgram(configFile: string): ts.Program {
 	const projectDirectory = dirname(configFile);
 	const { config } = ts.readConfigFile(configFile, ts.sys.readFile);
-	const parseConfigHost: TsType.ParseConfigHost = {
+	const parseConfigHost: ts.ParseConfigHost = {
 		fileExists: existsSync,
 		readDirectory: ts.sys.readDirectory,
 		readFile: file => readFileSync(file, "utf8"),
@@ -115,10 +109,7 @@ function createProgram(configFile: string, ts: typeof TsType): Program {
 
 function walk(
 		ctx: Lint.WalkContext<void>,
-		program: Program,
-		ts: typeof TsType,
-		versionName: string,
-		nextHigherVersion: string | undefined): void {
+		program: ts.Program): void {
 	const sourceFile = program.getSourceFile(ctx.sourceFile.fileName)!;
 
 	const checker = program.getTypeChecker();
@@ -155,7 +146,7 @@ function walk(
 		}
 	}
 
-	const { unmetExpectations, unusedAssertions } = getExpectTypeFailures(sourceFile, typeAssertions, checker, ts);
+	const { unmetExpectations, unusedAssertions } = getExpectTypeFailures(sourceFile, typeAssertions, checker);
 	for (const { node, expected, actual } of unmetExpectations) {
 		ctx.addFailureAtNode(node, Rule.FAILURE_STRING(expected, actual));
 	}
@@ -163,7 +154,7 @@ function walk(
 		addFailureAtLine(line, Rule.FAILURE_STRING_ASSERTION_MISSING_NODE);
 	}
 
-	function addDiagnosticFailure(diagnostic: TsType.Diagnostic): void {
+	function addDiagnosticFailure(diagnostic: ts.Diagnostic): void {
 		const intro = getIntro();
 		if (diagnostic.file === sourceFile) {
 			const msg = `${intro}\n${ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")}`;
@@ -175,15 +166,7 @@ function walk(
 	}
 
 	function getIntro(): string {
-		if (nextHigherVersion === undefined) {
-			return `TypeScript@${versionName} compile error: `;
-		} else {
-			const msg = `Compile error in typescript@${versionName} but not in typescript@${nextHigherVersion}.\n`;
-			const explain = nextHigherVersion === "next"
-				? "TypeScript@next features not yet supported."
-				: `Fix with a comment '// TypeScript Version: ${nextHigherVersion}' just under the header.`;
-			return msg + explain;
-		}
+		return `TypeScript@${ts.version} compile error: `;
 	}
 
 	function addFailureAtLine(line: number, failure: string): void {
@@ -205,7 +188,7 @@ interface Assertions {
 	readonly duplicates: ReadonlyArray<number>;
 }
 
-function parseAssertions(sourceFile: SourceFile): Assertions {
+function parseAssertions(sourceFile: ts.SourceFile): Assertions {
 	const errorLines = new Set<number>();
 	const typeAssertions = new Map<number, string>();
 	const duplicates: number[] = [];
@@ -267,18 +250,17 @@ function isFirstOnLine(text: string, lineStart: number, pos: number): boolean {
 
 interface ExpectTypeFailures {
 	/** Lines with an $ExpectType, but a different type was there. */
-	readonly unmetExpectations: ReadonlyArray<{ node: TsType.Node, expected: string, actual: string }>;
+	readonly unmetExpectations: ReadonlyArray<{ node: ts.Node, expected: string, actual: string }>;
 	/** Lines with an $ExpectType, but no node could be found. */
 	readonly unusedAssertions: Iterable<number>;
 }
 
 function getExpectTypeFailures(
-		sourceFile: SourceFile,
+		sourceFile: ts.SourceFile,
 		typeAssertions: Map<number, string>,
-		checker: TsType.TypeChecker,
-		ts: typeof TsType,
+		checker: ts.TypeChecker,
 		): ExpectTypeFailures {
-	const unmetExpectations: Array<{ node: TsType.Node, expected: string, actual: string }> = [];
+	const unmetExpectations: Array<{ node: ts.Node, expected: string, actual: string }> = [];
 	// Match assertions to the first node that appears on the line they apply to.
 	// `forEachChild` isn't available as a method in older TypeScript versions, so must use `ts.forEachChild` instead.
 	ts.forEachChild(sourceFile, function iterate(node) {
@@ -287,10 +269,10 @@ function getExpectTypeFailures(
 		if (expected !== undefined) {
 			// https://github.com/Microsoft/TypeScript/issues/14077
 			if (node.kind === ts.SyntaxKind.ExpressionStatement) {
-				node = (node as TsType.ExpressionStatement).expression;
+				node = (node as ts.ExpressionStatement).expression;
 			}
 
-			const type = checker.getTypeAtLocation(getNodeForExpectType(node, ts));
+			const type = checker.getTypeAtLocation(getNodeForExpectType(node));
 
 			const actual = type
 				? checker.typeToString(type, /*enclosingDeclaration*/ undefined, ts.TypeFormatFlags.NoTruncation)
@@ -301,15 +283,13 @@ function getExpectTypeFailures(
 
 			typeAssertions.delete(line);
 		}
-
-		ts.forEachChild(node, iterate);
 	});
 	return { unmetExpectations, unusedAssertions: typeAssertions.keys() };
 }
 
-function getNodeForExpectType(node: TsType.Node, ts: typeof TsType): TsType.Node {
+function getNodeForExpectType(node: ts.Node): ts.Node {
 	if (node.kind === ts.SyntaxKind.VariableStatement) { // ts2.0 doesn't have `isVariableStatement`
-		const { declarationList: { declarations } } = node as TsType.VariableStatement;
+		const { declarationList: { declarations } } = node as ts.VariableStatement;
 		if (declarations.length === 1) {
 			const { initializer } = declarations[0];
 			if (initializer) {
@@ -320,6 +300,6 @@ function getNodeForExpectType(node: TsType.Node, ts: typeof TsType): TsType.Node
 	return node;
 }
 
-function lineOfPosition(pos: number, sourceFile: SourceFile): number {
+function lineOfPosition(pos: number, sourceFile: ts.SourceFile): number {
 	return sourceFile.getLineAndCharacterOfPosition(pos).line;
 }
