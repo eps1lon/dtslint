@@ -29,14 +29,6 @@ export class Rule extends Lint.Rules.TypedRule {
 	}
 }
 
-export interface Options {
-	readonly tsconfigPath: string;
-	readonly tsNextPath: string;
-	// These should be sorted with oldest first.
-	readonly olderInstalls: ReadonlyArray<{ versionName: string, path: string }>;
-	readonly onlyTestTsNext: boolean;
-}
-
 function walk(
 		ctx: Lint.WalkContext<void>,
 		program: ts.Program): void {
@@ -192,14 +184,13 @@ function getExpectTypeFailures(
 		): ExpectTypeFailures {
 	const unmetExpectations: Array<{ node: ts.Node, expected: string, actual: string }> = [];
 	// Match assertions to the first node that appears on the line they apply to.
-	// `forEachChild` isn't available as a method in older TypeScript versions, so must use `ts.forEachChild` instead.
-	ts.forEachChild(sourceFile, function iterate(node) {
+	sourceFile.forEachChild(node => {
 		const line = lineOfPosition(node.getStart(sourceFile), sourceFile);
 		const expected = typeAssertions.get(line);
 		if (expected !== undefined) {
 			// https://github.com/Microsoft/TypeScript/issues/14077
-			if (node.kind === ts.SyntaxKind.ExpressionStatement) {
-				node = (node as ts.ExpressionStatement).expression;
+			if (ts.isExpressionStatement(node)) {
+				node = node.expression;
 			}
 
 			const type = checker.getTypeAtLocation(getNodeForExpectType(node));
@@ -218,8 +209,8 @@ function getExpectTypeFailures(
 }
 
 function getNodeForExpectType(node: ts.Node): ts.Node {
-	if (node.kind === ts.SyntaxKind.VariableStatement) { // ts2.0 doesn't have `isVariableStatement`
-		const { declarationList: { declarations } } = node as ts.VariableStatement;
+	if (ts.isVariableStatement(node)) {
+		const { declarationList: { declarations } } = node;
 		if (declarations.length === 1) {
 			const { initializer } = declarations[0];
 			if (initializer) {
