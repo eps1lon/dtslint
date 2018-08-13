@@ -3,10 +3,11 @@
   "version": "0.3.0",
   "description": "TSLint rule to avoid <reference path>.",
   "files": [
-    "rules",
-    "tslint-config.json"
+    "./*Rule.js",
+    "./*Rule.js.map",
+    "./*Rule.d.ts"
   ],
-  "main": "tslint-package.json",
+  "main": "tslint-config.json",
   "contributors": [
     "Andy Hanson <andy-ms@microsoft.com> (https://github.com/andy-ms)",
     "Dan Vanderkam <danvdk@gmail.com> (https://github.com/danvk)"
