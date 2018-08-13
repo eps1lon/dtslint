@@ -1,0 +1,24 @@
+{
+  "name": "dtslint-cli",
+  "version": "0.3.0",
+  "bin": "./lib/index.js",
+  "dependencies": {
+    "dtslint-util": "^0.3.0",
+    "fs-extra": "6.0.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "5.0.4",
+    "tslint-config-dtslint": "^0.3.0",
+    "ts-node": "^7.0.1",
+    "typescript": "~2.9.0"
+  },
+  "peerDependencies": {
+    "tslint": "^5.9.1"
+  },
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "build:watch": "tsc -w -p ./tsconfig.json",
+    "lint": "tslint -p ./tsconfig.json --format stylish",
+    "test": "ts-node test/cli.test.ts"
+  }
+}
