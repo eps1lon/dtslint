@@ -1,5 +1,5 @@
 {
-  "name": "dtslint",
+  "name": "tslint-config-dtslint",
   "version": "0.3.0",
   "description": "TSLint config including all rules from dtslint",
   "main": "tslint-config.json",
