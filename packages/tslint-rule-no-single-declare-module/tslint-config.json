@@ -1,5 +1,5 @@
 {
-  "extends": "./",
+  "rulesDirectory": "./",
   "rules": {
     "no-single-declare-module": true
   }
