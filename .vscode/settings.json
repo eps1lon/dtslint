@@ -9,5 +9,6 @@
       ],
       "url": "http://json.schemastore.org/tslint"
     }
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
